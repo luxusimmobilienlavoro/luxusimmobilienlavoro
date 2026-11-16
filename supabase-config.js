@@ -1,3 +1,2 @@
-// ⚠️ Si vous créez un nouveau projet Supabase pour LUXUSIMMOBILIEN, mettez les valeurs ici :
 export const SUPABASE_URL = "https://lunhfkimqlgnkcdbaclf.supabase.co";
-export const SUPABASE_ANON_KEY = "sb_publishable_RfxOD8ImHmSzaWuj97F4cA_b-j4l-yd";
+export const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx1bmhma2ltcWxnbmtjZGJhY2xmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ4MTc3MDMsImV4cCI6MjExMDM5MzcwM30.xcp2DaC2pKEVc6fCKeqZAix-pIqP5uq9lFLoCBKJX1I...";
