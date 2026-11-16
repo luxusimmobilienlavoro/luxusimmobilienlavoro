@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="LUXUSIMMOBILIEN — Candidature e assunzioni. Invia la tua candidatura e ricevi il contratto entro 24 ore." />
+<title>LUXUSIMMOBILIEN — Candidature</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<canvas id="bg3d"></canvas>
+<div class="bg-overlay"></div>
+
+<header class="site-header">
+  <a href="#" class="brand">
+    <span class="brand-text">LUXUS<em>IMMOBILIEN</em></span>
+  </a>
+  <nav class="nav">
+    <a href="#postuler" data-i18n="nav_apply">Candidati</a>
+    <a href="#contact" data-i18n="nav_contact">Contatto</a>
+  </nav>
+  <div class="lang-switcher">
+    <button class="lang-btn active" data-lang="it" aria-label="Italiano">IT</button>
+    <button class="lang-btn" data-lang="de" aria-label="Deutsch">DE</button>
+    <button class="lang-btn" data-lang="fr" aria-label="Français">FR</button>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-inner">
+      <span class="eyebrow" data-i18n="hero_eyebrow">Reclutamento aperto · Risposta entro 24 ore</span>
+      <h1 class="hero-title" data-i18n-html="hero_title">Costruisci il tuo futuro con <span class="accent">LUXUSIMMOBILIEN</span></h1>
+      <p class="hero-lede" data-i18n="hero_lede">Invia la tua candidatura in 3 minuti. Ricevi il tuo contratto di lavoro entro 24 ore.</p>
+      <div class="hero-cta">
+        <a href="#postuler" class="btn btn-primary" data-i18n="hero_btn_apply">Invia la mia candidatura</a>
+        <a href="https://wa.me/491784065141" target="_blank" rel="noopener" class="btn btn-outline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          <span data-i18n="hero_btn_contact">Contattaci</span>
+        </a>
+      </div>
+      <p class="hero-meta" data-i18n="hero_meta">Risposta entro 24 h · Contratti flessibili · Formazione gratuita</p>
+    </div>
+  </section>
+
+  <section class="showcase" aria-label="Luxury Real Estate">
+    <figure class="showcase-hero">
+      <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=85&auto=format&fit=crop" alt="Luxury Architecture" loading="lazy">
+    </figure>
+  </section>
+
+  <section id="postuler" class="section">
+    <div class="section-head">
+      <h2 class="section-title" data-i18n="form_title">Modulo di candidatura</h2>
+      <p class="section-sub" data-i18n-html="form_subtitle">Tutti i campi contrassegnati con <strong>*</strong> sono obbligatori.</p>
+    </div>
+
+    <form id="apply-form" class="form" novalidate>
+
+      <fieldset class="form-section">
+        <legend><span>01</span><span data-i18n="form_step1">Informazioni personali</span></legend>
+        <div class="grid-2">
+          <div class="field">
+            <label for="nom" data-i18n="form_nom">Nome e cognome *</label>
+            <input id="nom" name="nom" type="text" required data-i18n-placeholder="ph_nom" placeholder="Nome e Cognome" autocomplete="name" />
+            <span class="field-error" data-error-for="nom"></span>
+          </div>
+          <div class="field">
+            <label for="email" data-i18n="form_email">Indirizzo e-mail *</label>
+            <input id="email" name="email" type="email" required data-i18n-placeholder="ph_email" placeholder="tu@esempio.com" autocomplete="email" />
+            <span class="field-error" data-error-for="email"></span>
+          </div>
+          <div class="field field-full">
+            <label for="adresse" data-i18n="form_adresse">Indirizzo completo *</label>
+            <input id="adresse" name="adresse" type="text" required data-i18n-placeholder="ph_adresse" placeholder="Via, numero, città, codice postale" autocomplete="street-address" />
+            <span class="field-error" data-error-for="adresse"></span>
+          </div>
+          <div class="field">
+            <label for="pays" data-i18n="form_pays">Paese *</label>
+            <input id="pays" name="pays" type="text" required data-i18n-placeholder="ph_pays" placeholder="Es: Germania" autocomplete="country-name" />
+            <span class="field-error" data-error-for="pays"></span>
+          </div>
+          <div class="field field-full">
+            <label for="experiences" data-i18n-html="form_experiences">Esperienze <span class="opt">(Facoltativo)</span></label>
+            <textarea id="experiences" name="experiences" rows="3" data-i18n-placeholder="ph_experiences" placeholder="Descrivi le tue esperienze professionali..."></textarea>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="form-section">
+        <legend><span>02</span><span data-i18n="form_step2">Disponibilità e contratto</span></legend>
+
+        <div class="q">
+          <p class="q-label" data-i18n="form_q_dispo">Sarete disponibili a lavorare 7 giorni su 7 per 30 a 1 ore di tempo? *</p>
+          <div class="pills">
+            <label class="pill-opt"><input type="radio" name="dispo7j" value="Sì" required /><span data-i18n="opt_yes">Sì</span></label>
+            <label class="pill-opt"><input type="radio" name="dispo7j" value="No" /><span data-i18n="opt_no">No</span></label>
+          </div>
+          <span class="field-error" data-error-for="dispo7j"></span>
+        </div>
+
+        <div class="q">
+          <p class="q-label" data-i18n="form_q_autre_travail">Avete già un altro lavoro? *</p>
+          <div class="pills">
+            <label class="pill-opt"><input type="radio" name="autreTravail" value="Sì" required /><span data-i18n="opt_yes">Sì</span></label>
+            <label class="pill-opt"><input type="radio" name="autreTravail" value="No" /><span data-i18n="opt_no">No</span></label>
+          </div>
+          <span class="field-error" data-error-for="autreTravail"></span>
+        </div>
+
+        <div class="q">
+          <p class="q-label" data-i18n="form_q_autre_contrat">Avete già un altro contratto di lavoro? *</p>
+          <div class="pills">
+            <label class="pill-opt"><input type="radio" name="autreContrat" value="Sì" required /><span data-i18n="opt_yes">Sì</span></label>
+            <label class="pill-opt"><input type="radio" name="autreContrat" value="No" /><span data-i18n="opt_no">No</span></label>
+          </div>
+          <span class="field-error" data-error-for="autreContrat"></span>
+        </div>
+
+        <div class="q">
+          <p class="q-label" data-i18n="form_q_type_contrat">Quale contratto desiderate con noi? *</p>
+          <div class="pills">
+            <label class="pill-opt"><input type="radio" name="typeContrat" value="CDI" required /><span data-i18n="opt_cdi">Tempo indeterminato</span></label>
+            <label class="pill-opt"><input type="radio" name="typeContrat" value="CDD" /><span data-i18n="opt_cdd">Tempo determinato</span></label>
+          </div>
+          <span class="field-error" data-error-for="typeContrat"></span>
+        </div>
+
+        <div class="q">
+          <p class="q-label" data-i18n="form_q_temps">Desiderate lavorare a tempo parziale o a tempo pieno? *</p>
+          <div class="pills">
+            <label class="pill-opt"><input type="radio" name="tempsTravail" value="Temps partiel" required /><span data-i18n="opt_partiel">Tempo parziale</span></label>
+            <label class="pill-opt"><input type="radio" name="tempsTravail" value="Temps plein" /><span data-i18n="opt_plein">Tempo pieno</span></label>
+          </div>
+          <span class="field-error" data-error-for="tempsTravail"></span>
+        </div>
+
+        <div class="q">
+          <p class="q-label" data-i18n-html="form_q_formation">Desiderate ricevere una formazione per questo lavoro? <span class="opt">(Gratuito e facoltativo)</span></p>
+          <div class="pills">
+            <label class="pill-opt"><input type="radio" name="formation" value="Sì" /><span data-i18n="opt_yes">Sì</span></label>
+            <label class="pill-opt"><input type="radio" name="formation" value="No" /><span data-i18n="opt_no">No</span></label>
+          </div>
+        </div>
+
+        <div class="q">
+          <p class="q-label" data-i18n="form_q_salaire">Desiderate ricevere il vostro stipendio al giorno, alla settimana o al mese? *</p>
+          <div class="pills">
+            <label class="pill-opt"><input type="radio" name="salaire" value="Par jour" required /><span data-i18n="opt_jour">Al giorno</span></label>
+            <label class="pill-opt"><input type="radio" name="salaire" value="Par semaine" /><span data-i18n="opt_semaine">Alla settimana</span></label>
+            <label class="pill-opt"><input type="radio" name="salaire" value="Par mois" /><span data-i18n="opt_mois">Al mese</span></label>
+          </div>
+          <span class="field-error" data-error-for="salaire"></span>
+        </div>
+      </fieldset>
+
+      <fieldset class="form-section">
+        <legend><span>03</span><span data-i18n="form_step3">Documento giustificativo</span></legend>
+
+        <p class="q-label" data-i18n="form_doc_type">Scegli il documento da fornire *</p>
+        <div class="doc-grid">
+          <label class="doc-card">
+            <input type="radio" name="docType" value="Carte d'identité" required />
+            <div class="doc-inner">
+              <div class="doc-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4.5" width="20" height="15" rx="2.5"/>
+                  <circle cx="8.5" cy="11" r="2.4"/>
+                  <path d="M4.5 16.5c0-1.4 1.8-2.4 4-2.4s4 1 4 2.4"/>
+                  <path d="M14.5 10h4M14.5 13.5h4"/>
+                </svg>
+              </div>
+              <div class="doc-text">
+                <span class="doc-title" data-i18n="opt_carte_id">Carta d'identità</span>
+                <span class="doc-desc" data-i18n="doc_card_id_desc">Documento ufficiale</span>
+              </div>
+              <div class="doc-check">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+              </div>
+            </div>
+          </label>
+
+          <label class="doc-card">
+            <input type="radio" name="docType" value="Permis de conduire" />
+            <div class="doc-inner">
+              <div class="doc-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4.5" width="20" height="15" rx="2.5"/>
+                  <path d="M5.5 14l1.2-3.2a1.6 1.6 0 0 1 1.5-1h6.6a1.6 1.6 0 0 1 1.5 1L17.5 14"/>
+                  <circle cx="7.5" cy="15" r="1.5"/>
+                  <circle cx="16.5" cy="15" r="1.5"/>
+                  <path d="M6 8h4"/>
+                </svg>
+              </div>
+              <div class="doc-text">
+                <span class="doc-title" data-i18n="opt_permis">Patente di guida</span>
+                <span class="doc-desc" data-i18n="doc_card_permis_desc">Patente valida</span>
+              </div>
+              <div class="doc-check">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+              </div>
+            </div>
+          </label>
+
+          <label class="doc-card">
+            <input type="radio" name="docType" value="Carte sanitaire" />
+            <div class="doc-inner">
+              <div class="doc-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4.5" width="20" height="15" rx="2.5"/>
+                  <path d="M12 15.5s-2.3-1.4-2.3-3c0-.8.6-1.4 1.4-1.4.5 0 .8.3.9.6.1-.3.4-.6.9-.6.8 0 1.4.6 1.4 1.4 0 1.6-2.3 3-2.3 3z"/>
+                  <path d="M5.5 8.5h3"/>
+                </svg>
+              </div>
+              <div class="doc-text">
+                <span class="doc-title" data-i18n="opt_sanitaire">Tessera sanitaria</span>
+                <span class="doc-desc" data-i18n="doc_card_sanitaire_desc">Tessera sanitaria</span>
+              </div>
+              <div class="doc-check">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+              </div>
+            </div>
+          </label>
+        </div>
+        <span class="field-error" data-error-for="docType"></span>
+
+        <div class="photos">
+          <div class="photo-slot" data-key="recto" data-facing="environment">
+            <button type="button" class="photo-remove js-photo-remove" aria-label="Supprimer" hidden>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <div class="photo-preview">
+              <span class="photo-empty" data-i18n="no_photo">Nessuna foto</span>
+              <img class="photo-img" alt="" style="display:none" />
+            </div>
+            <div class="photo-actions">
+              <button type="button" class="btn btn-sm btn-primary js-cam" data-i18n="form_btn_cam">Scatta la foto</button>
+              <label class="btn btn-sm btn-outline"><span data-i18n="form_btn_choose">Scegli</span><input type="file" accept="image/*" hidden /></label>
+            </div>
+            <p class="photo-label" data-i18n="form_photo_recto">Fronte del documento *</p>
+            <p class="photo-error field-error" data-error-for="recto"></p>
+          </div>
+
+          <div class="photo-slot" data-key="verso" data-facing="environment">
+            <button type="button" class="photo-remove js-photo-remove" aria-label="Supprimer" hidden>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <div class="photo-preview">
+              <span class="photo-empty" data-i18n="no_photo">Nessuna foto</span>
+              <img class="photo-img" alt="" style="display:none" />
+            </div>
+            <div class="photo-actions">
+              <button type="button" class="btn btn-sm btn-primary js-cam" data-i18n="form_btn_cam">Scatta la foto</button>
+              <label class="btn btn-sm btn-outline"><span data-i18n="form_btn_choose">Scegli</span><input type="file" accept="image/*" hidden /></label>
+            </div>
+            <p class="photo-label" data-i18n="form_photo_verso">Retro del documento *</p>
+            <p class="photo-error field-error" data-error-for="verso"></p>
+          </div>
+
+          <div class="photo-slot" data-key="selfie" data-facing="user">
+            <button type="button" class="photo-remove js-photo-remove" aria-label="Supprimer" hidden>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <div class="photo-preview">
+              <span class="photo-empty" data-i18n="no_photo">Nessuna foto</span>
+              <img class="photo-img" alt="" style="display:none" />
+            </div>
+            <div class="photo-actions">
+              <button type="button" class="btn btn-sm btn-primary js-cam" data-i18n="form_btn_selfie">Scatta il selfie</button>
+              <label class="btn btn-sm btn-outline"><span data-i18n="form_btn_choose">Scegli</span><input type="file" accept="image/*" hidden /></label>
+            </div>
+            <p class="photo-label" data-i18n="form_photo_selfie">Foto selfie (volto) *</p>
+            <p class="photo-error field-error" data-error-for="selfie"></p>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="form-submit">
+        <button type="submit" id="submit-btn" class="btn btn-primary btn-lg" data-i18n="form_submit">Invia la mia candidatura</button>
+        <p class="form-note" data-i18n="form_note">I tuoi dati vengono utilizzati esclusivamente per l'elaborazione della tua candidatura e saranno eliminati automaticamente dopo 48 ore.</p>
+      </div>
+    </form>
+  </section>
+</main>
+
+<footer id="contact" class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <h3>LUXUSIMMOBILIEN</h3>
+      <p>Max Mustermann Hauptstraße 42<br/>10117 Berlin DEUTSCHLAND</p>
+    </div>
+    <div>
+      <h3 data-i18n="footer_contact">Contatto</h3>
+      <p><a href="https://wa.me/491784065141" target="_blank" rel="noopener">WhatsApp : (+49) 178 406 5141</a><br/>
+      <a href="mailto:luxusimmobilien@inbox.eu">luxusimmobilien@inbox.eu</a></p>
+    </div>
+    <div>
+      <h3 data-i18n="footer_apply">Candidatura</h3>
+      <p><a href="#postuler" data-i18n="footer_apply_link">Invia una candidatura</a></p>
+    </div>
+  </div>
+  <p class="copyright">© <span id="year"></span> LUXUSIMMOBILIEN. <span data-i18n="footer_rights">Tutti i diritti riservati.</span></p>
+</footer>
+
+<div id="cam-modal" class="cam-modal" hidden>
+  <div class="cam-box">
+    <video id="cam-video" playsinline autoplay muted></video>
+    <div class="cam-bar">
+      <button type="button" id="cam-shot" class="btn btn-primary" data-i18n="cam_shot">Cattura</button>
+      <button type="button" id="cam-close" class="btn btn-outline" data-i18n="cam_cancel">Annulla</button>
+    </div>
+  </div>
+</div>
+
+<div id="success-modal" class="modal" hidden>
+  <div class="modal-box">
+    <div class="check">✓</div>
+    <h2 data-i18n="success_title">Candidatura inviata</h2>
+    <p data-i18n="success_msg">La tua candidatura è stata inviata, sarà elaborata e riceverai una risposta al più tardi nelle prossime 24 ore.</p>
+    <button class="btn btn-primary" id="success-close" data-i18n="success_close">Chiudi</button>
+  </div>
+</div>
+
+<script type="module" src="three-bg.js"></script>
+<script type="module" src="lang.js"></script>
+<script type="module" src="form.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
