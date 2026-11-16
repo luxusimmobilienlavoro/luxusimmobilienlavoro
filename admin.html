@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LUXUSIMMOBILIEN — Administration</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body class="admin-body">
+<canvas id="bg3d"></canvas>
+<div class="bg-overlay"></div>
+
+<header class="site-header">
+  <a href="index.html" class="brand">
+    <span class="brand-text">LUXUS<em>IMMOBILIEN</em></span>
+  </a>
+  <div class="nav" style="margin-left:auto">
+    <a href="index.html">Retour au site</a>
+  </div>
+  <button id="logout-btn" class="btn btn-outline" style="margin-left: 20px; padding: 8px 16px; font-size:10px;" hidden>Déconnexion</button>
+</header>
+
+<section id="login-view" class="login-box">
+  <h1>Espace Admin</h1>
+  <p>Connectez-vous pour gérer les candidatures.</p>
+  <form id="login-form">
+    <div class="field">
+      <label for="login-email">Adresse e-mail</label>
+      <input id="login-email" type="email" required autocomplete="username" placeholder="votre@email.com" />
+    </div>
+    <div class="field">
+      <label for="login-pass">Mot de passe</label>
+      <input id="login-pass" type="password" required autocomplete="current-password" placeholder="••••••••" />
+    </div>
+    <button type="submit" id="login-btn" class="btn btn-primary" style="width:100%;margin-top:8px">Se connecter</button>
+    <p id="login-error" class="error-msg" hidden></p>
+  </form>
+</section>
+
+<section id="dash-view" class="admin-wrap" hidden>
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:16px;">
+    <h1 style="font-family:var(--font-display); font-size:32px; margin:0; color:var(--gold)">Candidatures</h1>
+    <button id="refresh" class="btn btn-outline btn-sm">Actualiser</button>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><strong id="stat-total">0</strong><span>Total</span></div>
+    <div class="stat"><strong id="stat-new">0</strong><span>Nouvelles</span></div>
+    <div class="stat"><strong id="stat-cdi">0</strong><span>Contrats CDI</span></div>
+    <div class="stat"><strong id="stat-today">0</strong><span>Aujourd'hui</span></div>
+  </div>
+
+  <div class="toolbar">
+    <input id="search" type="search" placeholder="Rechercher par nom, email, pays..." />
+    <select id="filter-status">
+      <option value="">Tous les statuts</option>
+      <option value="nouveau">Nouveau</option>
+      <option value="encours">En cours</option>
+      <option value="accepte">Accepté</option>
+      <option value="refuse">Refusé</option>
+    </select>
+    <button id="export-csv" class="btn btn-primary">Exporter CSV</button>
+  </div>
+
+  <div id="apps-list">
+    <p class="empty-state">Chargement des candidatures...</p>
+  </div>
+</section>
+
+<script type="module" src="three-bg.js"></script>
+<script type="module" src="admin.js"></script>
+</body>
+</html>
