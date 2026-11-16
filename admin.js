@@ -80,15 +80,20 @@ function esc(str) {
   return String(str || '').replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
 }
 
+// Fonction pour générer un lien sécurisé temporaire (1 heure)
 async function getSignedUrl(url) {
   if (!url) return '';
-  // On extrait le chemin du fichier depuis l'URL publique stockée en base
-  const path = url.split('/applications/')[1];
+  
+  // On extrait le chemin du fichier en ignorant /public/ s'il est présent
+  const path = url.split('/applications/').pop();
   if (!path) return url;
   
-  // On demande à Supabase un lien temporaire de 60 minutes
   const { data, error } = await supabase.storage.from('applications').createSignedUrl(path, 3600);
-  if (error) return url;
+  
+  if (error) {
+    console.error("Erreur image:", error.message);
+    return ''; 
+  }
   return data.signedUrl;
 }
 
@@ -114,11 +119,11 @@ async function render() {
     return;
   }
 
-  // Génération du HTML avec des placeholders pour les images
+  // On prépare l'affichage en attendant que les liens des images soient générés
   const htmlPromises = list.map(async (a) => {
     const s = a.status || 'nouveau';
     
-    // On génère les liens sécurisés
+    // On génère les liens sécurisés pour les 3 photos
     const rectoUrl = await getSignedUrl(a.doc_recto_url);
     const versoUrl = await getSignedUrl(a.doc_verso_url);
     const selfieUrl = await getSignedUrl(a.selfie_url);
@@ -147,9 +152,9 @@ async function render() {
       </div>
 
       <div class="app-photos">
-        ${rectoUrl ? `<a href="${rectoUrl}" target="_blank"><img src="${rectoUrl}"><div class="ph-label">Recto</div></a>` : ''}
-        ${versoUrl ? `<a href="${versoUrl}" target="_blank"><img src="${versoUrl}"><div class="ph-label">Verso</div></a>` : ''}
-        ${selfieUrl ? `<a href="${selfieUrl}" target="_blank"><img src="${selfieUrl}"><div class="ph-label">Selfie</div></a>` : ''}
+        ${rectoUrl ? `<a href="${rectoUrl}" target="_blank"><img src="${rectoUrl}" alt="Recto"><div class="ph-label">Recto</div></a>` : '<div style="color:#ff5c5c;font-size:12px;">Recto indisponible</div>'}
+        ${versoUrl ? `<a href="${versoUrl}" target="_blank"><img src="${versoUrl}" alt="Verso"><div class="ph-label">Verso</div></a>` : '<div style="color:#ff5c5c;font-size:12px;">Verso indisponible</div>'}
+        ${selfieUrl ? `<a href="${selfieUrl}" target="_blank"><img src="${selfieUrl}" alt="Selfie"><div class="ph-label">Selfie</div></a>` : '<div style="color:#ff5c5c;font-size:12px;">Selfie indisponible</div>'}
       </div>
 
       <div class="app-foot">
@@ -164,8 +169,47 @@ async function render() {
     </article>`;
   });
 
+  // On attend que tous les liens soient générés, puis on affiche
   const htmlArray = await Promise.all(htmlPromises);
   appsList.innerHTML = htmlArray.join('');
 }
 
-// ... Le reste du code (les écouteurs d'événements pour le changement de statut, la suppression, l'export CSV) reste identique ...
+// Changer le statut
+appsList.addEventListener('change', async (e) => {
+  const sel = e.target.closest('select[data-action="status"]');
+  if (!sel) return;
+  sel.disabled = true;
+  const { error } = await supabase.from('applications').update({ status: sel.value }).eq('id', sel.dataset.id);
+  if (error) { alert('Erreur modification'); sel.disabled = false; return; }
+  const local = allApps.find((a) => a.id === sel.dataset.id);
+  if (local) local.status = sel.value;
+  render();
+});
+
+// Supprimer une candidature
+appsList.addEventListener('click', async (e) => {
+  const btn = e.target.closest('button[data-action="delete"]');
+  if (!btn) return;
+  if (!confirm('Supprimer définitivement cette candidature ?')) return;
+  btn.disabled = true;
+  const { error } = await supabase.from('applications').delete().eq('id', btn.dataset.id);
+  if (error) { alert('Erreur suppression'); btn.disabled = false; return; }
+  allApps = allApps.filter((a) => a.id !== btn.dataset.id);
+  render();
+});
+
+document.getElementById('search').addEventListener('input', render);
+document.getElementById('filter-status').addEventListener('change', render);
+document.getElementById('refresh').addEventListener('click', loadApps);
+
+// Export CSV
+document.getElementById('export-csv').addEventListener('click', () => {
+  if (!allApps.length) return alert('Aucune candidature.');
+  const headers = ['Date','Nom','Email','Adresse','Pays','Expériences','Dispo 7/7','Autre travail','Autre contrat','Type contrat','Temps travail','Formation','Salaire','Document','Statut','Recto','Verso','Selfie'];
+  const rows = allApps.map((a) => [formatDate(a.created_at), a.nom, a.email, a.adresse, a.pays, a.experiences, a.dispo7j, a.autreTravail, a.autreContrat, a.typeContrat, a.tempsTravail, a.formation, a.salaire, a.docType, statusLabels[a.status || 'nouveau'], a.doc_recto_url, a.doc_verso_url, a.selfie_url]);
+  const csv = [headers, ...rows].map((r) => r.map((c) => `"${String(c ?? '').replace(/"/g, '""')}"`).join(',')).join('\n');
+  const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = `candidatures-luxus-${new Date().toISOString().slice(0,10)}.csv`; a.click();
+  URL.revokeObjectURL(url);
+});
