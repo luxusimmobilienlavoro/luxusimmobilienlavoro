@@ -198,10 +198,14 @@ form.addEventListener('submit', async (e) => {
     for (const key of ['recto', 'verso', 'selfie']) {
       const file = photos[key];
       const filePath = `candidatures/${appId}/${key}.jpg`;
+      
+      // MODIFICATION ICI : upsert à false pour éviter les conflits RLS
       const { error: uploadError } = await supabase.storage
         .from('applications')
-        .upload(filePath, file, { contentType: 'image/jpeg', upsert: true });
+        .upload(filePath, file, { contentType: 'image/jpeg', upsert: false });
+        
       if (uploadError) throw new Error(`Errore upload ${key}: ${uploadError.message}`);
+      
       const { data: urlData } = supabase.storage.from('applications').getPublicUrl(filePath);
       urls[key] = urlData.publicUrl;
     }
